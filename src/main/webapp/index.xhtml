@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:botDetect="https://captcha.com/java/jsf"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <title></title>
+</h:head>
+
+<h:body>
+    <h:form id="form">
+        <p:inputText id="name" value="#{feedbackForm.name}" required="true"
+                     placeholder="name"
+                     requiredMessage="Username is required"/>
+        <br/>
+
+        <p:inputText id="firstName" value="#{feedbackForm.firstName}" required="true"
+                     placeholder="firstName"
+                     requiredMessage="firstName is required"/>
+        <br/>
+
+        <p:inputText id="contactText" value="#{feedbackForm.contactText}" required="true"
+                     placeholder="contactText"
+                     requiredMessage="contactText is required"/>
+        <br/>
+
+        <p:inputText id="email" value="#{feedbackForm.email}" required="true"
+                     placeholder="email"
+                     requiredMessage="Email is required">
+            <f:validator validatorId="EmailValidator"/>
+        </p:inputText>
+        <p:message for="email"/>
+        <br/>
+
+        <p:inputText id="repeatEmail" value="#{feedbackForm.repeatEmail}" required="true"
+                     placeholder="repeatEmail"
+                     requiredMessage="repeatEmail is required">
+            <f:validator validatorId="EmailValidator"/>
+        </p:inputText>
+        <p:message for="repeatEmail"/>
+        <br/>
+
+        <h:outputLabel for="captchaCode"
+                       value="Retype the characters from the picture:"/>
+
+        <botDetect:jsfCaptcha id="captcha"
+                              userInputID="captchaCode"
+                              binding="#{feedbackForm.captcha}"/>
+
+        <h:inputText id="captchaCode" value="#{feedbackForm.captchaCode}"/>
+        <p:message for="captcha"/>
+
+        <br/>
+        <br/>
+        <p:messages id="msgs"/>  <!-- Catch global exception message -->
+        <h:commandButton id="submit-button" value="Submit" action="#{feedbackForm.submit()}"
+                         update=":msgs"> </h:commandButton>
+    </h:form>
+</h:body>
+</html>
